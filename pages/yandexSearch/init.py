@@ -1,22 +1,23 @@
-from basePage  import BasePage
+from basePage import BasePage
 from selenium.webdriver.support import wait
 from pages.yandexSearch.LOCATORS import Locators
+from pages.yandexSearch.element import Element
 
 class YandexSearcher(BasePage):
     def enter_word(self, word):
-        search_field = self.driver.find_element(Locators.search_field[0], Locators.search_field[1])
-        search_field.click()
-        search_field.send_keys(word)
+        search_field = Element(self.get_driver(), Locators.search_field)
+        search_field.click_element()
+        search_field.send_key(word)
         return search_field
 
     def click_on_the_search_button(self):
-        search_button = self.driver.find_element(Locators.search_button[0], Locators.search_button[1])
-        search_button.click()
+        search_button = Element(self.get_driver(), Locators.search_button)
+        search_button.click_element()
         return search_button
 
     def click_on_cancel_button(self):
-        cancel_button = self.driver.find_element(Locators.cancel_button[0], Locators.cancel_button[1])
-        cancel_button.click()
+        cancel_button = Element(Locators.cancel_button)
+        cancel_button.click_element()
         return cancel_button
 
     def find_element_in_nav_bar(self):

@@ -11,3 +11,6 @@ class BasePage:
     def quit_from_browser(self):
         return self.driver.quit()
 
+    def get_driver(self):
+        return self.driver
+

@@ -12,12 +12,13 @@ def browser(yandex_page):
     yandex_page.enter_word("cat")
     yield
     yandex_page.quit_from_browser()
-@pytest.mark.skip()
+
+
 def test_search(yandex_page,browser):
     yandex_page.click_on_the_search_button()
     time.sleep(2)
 
-@pytest.mark.skip()
+
 def test_enter_in_field_and_clear_words(yandex_page, browser):
     yandex_page.click_on_cancel_button()
     yandex_page.enter_word("dog")
