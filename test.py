@@ -31,3 +31,5 @@ def test_check_finding_elements_in_nav_bar(yandex_page, browser):
     for i in range(1, len(elements)):
         elements[i].click()
         time.sleep(1)
+
+

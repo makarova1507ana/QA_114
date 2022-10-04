@@ -15,3 +15,5 @@ class Element():
         element = self.driver.find_element(self.locator[0], self.locator[1])
         element.click()
         element.send_keys(word)
+def print_el():
+    pass
