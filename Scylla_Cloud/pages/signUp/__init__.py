@@ -1,6 +1,8 @@
 from Scylla_Cloud.pages.signUp import locators
 from Scylla_Cloud.browser import Browser
 from selenium import webdriver
+from Scylla_Cloud.conftest import User
+import time
 
 class Element:
     def __init__(self, driver, locator):
@@ -35,12 +37,19 @@ class SignUp():
             self.last_name = InputElement(driver=browser.get_driver(), locator=locators.last_name_locator)
             self.email = InputElement(driver=browser.get_driver(), locator=locators.email_locator)
             self.password = InputElement(driver=browser.get_driver(), locator=locators.password_locator)
-            self.company = InputElement(driver=browser.get_driver(),locator=locators.company_locator)
+            self.company = InputElement(driver=browser.get_driver(), locator=locators.company_locator)
             self.country = InputElement(driver=browser.driver, locator=locators.country_locator)
             self.phone = InputElement(driver=browser.get_driver(), locator=locators.phone_locator)
             self.agreement_check_box = CheckBoxElement(driver=browser.get_driver(), locator=locators.agreement_check_box_locator)
             self.signup_button = ButtonElement(driver=browser.get_driver(), locator=locators.signup_button_locator)
 
-        def signup(self):
-            pass
+        def signup(self, user: User):
+            self.first_name.enter_text(user.first_name)
+            self.last_name.enter_text(user.last_name)
+            self.email.enter_text(user.email)
+            self.password.enter_text(user.password())
+            self.company.enter_text(user.company)
+            self.country.enter_text(user.country)
+            # time.sleep(2)
+            # self.phone.enter_text(user.phone)
 
