@@ -28,21 +28,18 @@ class ButtonElement(Element):
 
 class SignUp():
 
-        def __init__(self, base_url="https://cloud.scylladb.com/user/signup"):
+        def __init__(self, browser):
        # self.path = "/user/signup"
       #  self.url = base_url + self.path
-            browser = Browser()
-            browser.go_to_site()
-            browser.get_driver().implicitly_wait(5)
-            self.first_name = InputElement(browser.get_driver(), locators.first_name_locator)
-            self.last_name = InputElement(browser.get_driver(), locators.last_name_locator)
-            self.email = InputElement(browser.get_driver(), locators.email_locator)
-            self.password = InputElement(browser.get_driver(), locators.password_locator)
-            self.company = InputElement(browser.get_driver(), locators.company_locator)
-            self.country = InputElement(browser.driver, locators.country_locator)
-            self.phone = InputElement(browser.get_driver(), locators.phone_locator)
-            self.agreement_check_box = CheckBoxElement(browser.get_driver(), locators.agreement_check_box_locator)
-            self.signup_button = ButtonElement(browser.get_driver(), locators.signup_button_locator)
+            self.first_name = InputElement(driver=browser.get_driver(), locator=locators.first_name_locator)
+            self.last_name = InputElement(driver=browser.get_driver(), locator=locators.last_name_locator)
+            self.email = InputElement(driver=browser.get_driver(), locator=locators.email_locator)
+            self.password = InputElement(driver=browser.get_driver(), locator=locators.password_locator)
+            self.company = InputElement(driver=browser.get_driver(),locator=locators.company_locator)
+            self.country = InputElement(driver=browser.driver, locator=locators.country_locator)
+            self.phone = InputElement(driver=browser.get_driver(), locator=locators.phone_locator)
+            self.agreement_check_box = CheckBoxElement(driver=browser.get_driver(), locator=locators.agreement_check_box_locator)
+            self.signup_button = ButtonElement(driver=browser.get_driver(), locator=locators.signup_button_locator)
 
         def signup(self):
             pass

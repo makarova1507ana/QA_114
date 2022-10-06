@@ -5,7 +5,6 @@ class Browser:
         self.driver = webdriver.Chrome()
         self.base_url = base_url
 
-        #self.driver.implicitly_wait(5)
     def go_to_site(self):
         return self.driver.get(self.base_url)
     # @property
