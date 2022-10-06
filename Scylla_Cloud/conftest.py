@@ -1,6 +1,7 @@
 import pytest
 import random
 import string
+import datetime
 from Scylla_Cloud.browser import Browser
 
 class User:
@@ -30,15 +31,19 @@ class User:
         self._password = self.generate_password(count_special_chars=1, count_letters=5, count_numbers=2)
         return self._password
 
+@pytest.fixture(scope="session")
+def id_test():
+    return datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+
 @pytest.fixture()
 def browser():
     return Browser()
 
 @pytest.fixture()
-def test_user():
+def user_test(id_test):
     return User(first_name="Ivan",
     last_name="Ivanov",
-    email="makarova1507nastya+1@gmail.com",#надо подумать над уникальностью
+    email=f"mak+{id_test}@gmail.com",
     company="Step It",
     country="Russia",
     phone="+79331234455")

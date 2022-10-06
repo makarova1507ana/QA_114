@@ -1,38 +1,13 @@
+import time
+from selenium import webdriver
 from Scylla_Cloud.pages.signUp import locators
 from Scylla_Cloud.browser import Browser
-from selenium import webdriver
 from Scylla_Cloud.conftest import User
-import time
-
-class Element:
-    def __init__(self, driver, locator):
-        self.driver = driver
-        self.locator = locator  # (By.ID, "id")
-        self.element = self.driver.find_element(self.locator[0], self.locator[1])
-
-    def click_element(self):
-        self.element.click()
-
-class InputElement(Element):
-
-    def enter_text(self, text):
-        self.click_element()
-        self.element.send_keys(text)
-
-    def get_text(self):
-        return self.element.get_attribute("value")
-
-class CheckBoxElement(Element):
-    pass
-
-class ButtonElement(Element):
-    pass
+from Scylla_Cloud.pages.signUp.element import Element, InputElement, CheckBoxElement, ButtonElement
 
 class SignUp():
-
+        path = "/user/signup"
         def __init__(self, browser):
-       # self.path = "/user/signup"
-      #  self.url = base_url + self.path
             self.first_name = InputElement(driver=browser.get_driver(), locator=locators.first_name_locator)
             self.last_name = InputElement(driver=browser.get_driver(), locator=locators.last_name_locator)
             self.email = InputElement(driver=browser.get_driver(), locator=locators.email_locator)
@@ -50,6 +25,10 @@ class SignUp():
             self.password.enter_text(user.password())
             self.company.enter_text(user.company)
             self.country.enter_text(user.country)
+            self.country.key_code()
             # time.sleep(2)
-            # self.phone.enter_text(user.phone)
-
+            self.phone.enter_text(user.phone)
+            self.agreement_check_box.click_element()
+            print(self.agreement_check_box.state())
+           # time.sleep(2)
+           # self.signup_button.click_element()
