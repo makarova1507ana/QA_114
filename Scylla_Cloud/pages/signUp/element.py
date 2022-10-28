@@ -1,6 +1,10 @@
+import logging
+
 from selenium import webdriver
 from selenium.webdriver import Keys
-from Scylla_Cloud.pages.signUp.locators import is_checked_locator
+from pages.signUp.locators import is_checked_locator
+import logging
+LOGGER = logging.getLogger(__name__)
 
 class Element:
     def __init__(self, driver, locator):
@@ -14,6 +18,7 @@ class Element:
 class InputElement(Element):
 
     def enter_text(self, text):
+        LOGGER.debug(f"InputElement: entering test '{text}'")
         self.click_element()
         self.element.send_keys(text)
 
