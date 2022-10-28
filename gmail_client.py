@@ -2,11 +2,12 @@ import email
 import logging
 from datetime import datetime, timedelta
 from imaplib import IMAP4_SSL, IMAP4
+from dateutil.tz import tz
 
 LOGGER = logging.getLogger(__name__)
 
 class GmailClient:
-    SERVER = "imap.google.com"
+    SERVER = "imap.gmail.com"#ошибка
     PORT = 993
 
     def __init__(self, email_addr, password):
@@ -18,7 +19,7 @@ class GmailClient:
 
     def connect(self):
         LOGGER.info("Connecting with Gmail server...")
-        self.client = IMAP4_SSL(host=self.SERVER)
+        self.client = IMAP4_SSL(host=self.SERVER, port=self.PORT)
         self.client.login(self.email_address, self.password)
         self.client.select("inbox")
 
@@ -46,7 +47,7 @@ class GmailClient:
                     continue
                 msg = email.message_from_string(tuple(response_part)[1].decode())
                 LOGGER.info("Found the following msg '{}':")#надо дописать
-                msg_date = datetime.strptime(msg["date"], date_format)#.astimezone(tz=tz.tzlocal()).replace(tzinfo=None)
+                msg_date = datetime.strptime(msg["date"], date_format).astimezone(tz=tz.tzlocal()).replace(tzinfo=None)
                 if (msg_date - current_utc_time).total_seconds() >= 0:
                     email_messages.append(msg)
         return email_messages
@@ -73,6 +74,7 @@ class GmailClient:
             assert email_messages, "Not found at least one email message to following filters '{}' and"\
                                     "since '{}'".format(search_criteria, current_utc_time)
             return email_messages
+        return get_emails_list() #баг забыли добавить
 
     def logout(self):
         LOGGER.info("Closing the Gmail connecting...")
@@ -84,8 +86,9 @@ class GmailClient:
 
 # email testeriko123@gmail.com
 # password Testeriko123.
+# пароль приложения usgnqbvjpewlqfwz пришлось повозиться
 if __name__ == "__main__":
-    gmail_client = GmailClient(email_addr="testeriko123@gmail.com", password="Testeriko123.")
+    gmail_client = GmailClient(email_addr="testeriko123@gmail.com", password="usgnqbvjpewlqfwz")
     LOGGER.info("Getting messages...")
-    messages = gmail_client.get_messages(to_email="testeriko123@gmail.com", find_before=2000)
+    messages = gmail_client.get_messages(to_email="testeriko123@gmail.com", find_before=2000000)#работает
     LOGGER.info("Done.")
