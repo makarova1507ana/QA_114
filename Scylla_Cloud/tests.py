@@ -27,7 +27,7 @@ class TestSignUpPage:
         messages = gmail_client.get_messages(to_email="testeriko123@gmail.com", find_before=40)  # работает
         assert len(messages) == 1, f"More than one message for {user_test.email} in  the Inbox"
         LOGGER.info(messages[0])
-        match_obj = re.search('\/\/cloud.scylladb.com.+"', str(messages[0]))
+        match_obj = re.search('\/\/cloud.scylladb.com.\/me\/verify/+"', str(messages[0]))
         assert match_obj is not None, f"Link not found in {messages[0]}"
         verification_link = "https:"+match_obj.group()#просто 1 убрать
         browser.go_to_url(verification_link)
